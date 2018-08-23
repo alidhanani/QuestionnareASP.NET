@@ -1,0 +1,15 @@
+﻿
+
+@{
+    ViewBag.Title = "front";
+}
+<form method="post" action="/Home/addID">
+    <h2>Begin</h2>
+    <input type="number" name="userid"/>
+    <input type="submit" value="Start"/>
+    @{
+        Session["count"] = 1;
+        Session["answer"] = 0;
+    }
+</form>
+

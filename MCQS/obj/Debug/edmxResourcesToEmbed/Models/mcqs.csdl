@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Answer">
+    <Key>
+      <PropertyRef Name="ansno" />
+    </Key>
+    <Property Name="ansno" Type="Int32" Nullable="false" />
+    <Property Name="qno" Type="Int32" />
+    <Property Name="ano" Type="Int32" />
+    <Property Name="sno" Type="Int32" />
+    <NavigationProperty Name="Option" Relationship="Self.sno" FromRole="Answer" ToRole="Option" />
+  </EntityType>
+  <EntityType Name="Option">
+    <Key>
+      <PropertyRef Name="sno" />
+    </Key>
+    <Property Name="sno" Type="Int32" Nullable="false" />
+    <Property Name="qno" Type="Int32" />
+    <Property Name="ano" Type="Int32" />
+    <Property Name="text" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Answers" Relationship="Self.sno" FromRole="Option" ToRole="Answer" />
+    <NavigationProperty Name="Question" Relationship="Self.qno" FromRole="Option" ToRole="Question" />
+  </EntityType>
+  <EntityType Name="Question">
+    <Key>
+      <PropertyRef Name="qno" />
+    </Key>
+    <Property Name="qno" Type="Int32" Nullable="false" />
+    <Property Name="text" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Options" Relationship="Self.qno" FromRole="Question" ToRole="Option" />
+    <Property Name="ano" Type="Int32" />
+  </EntityType>
+  <Association Name="sno">
+    <End Role="Option" Type="Self.Option" Multiplicity="0..1" />
+    <End Role="Answer" Type="Self.Answer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Option">
+        <PropertyRef Name="sno" />
+      </Principal>
+      <Dependent Role="Answer">
+        <PropertyRef Name="sno" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="qno">
+    <End Role="Question" Type="Self.Question" Multiplicity="0..1" />
+    <End Role="Option" Type="Self.Option" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Question">
+        <PropertyRef Name="qno" />
+      </Principal>
+      <Dependent Role="Option">
+        <PropertyRef Name="qno" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="McqsDataEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Answers" EntityType="Self.Answer" />
+    <EntitySet Name="Options" EntityType="Self.Option" />
+    <EntitySet Name="Questions" EntityType="Self.Question" />
+    <AssociationSet Name="sno" Association="Self.sno">
+      <End Role="Option" EntitySet="Options" />
+      <End Role="Answer" EntitySet="Answers" />
+    </AssociationSet>
+    <AssociationSet Name="qno" Association="Self.qno">
+      <End Role="Question" EntitySet="Questions" />
+      <End Role="Option" EntitySet="Options" />
+    </AssociationSet>
+    <EntitySet Name="UserResonds" EntityType="Model.UserResond" />
+  </EntityContainer>
+  <EntityType Name="UserResond">
+    <Key>
+      <PropertyRef Name="userId" />
+    </Key>
+    <Property Name="userId" Type="Int32" Nullable="false" />
+    <Property Name="sum" Type="Int32" />
+    <Property Name="qno" Type="Int32" />
+    <Property Name="response" Type="Int32" />
+  </EntityType>
+</Schema>

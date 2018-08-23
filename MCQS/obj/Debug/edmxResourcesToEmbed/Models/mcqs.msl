@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="McqsDataEntities">
+    <EntitySetMapping Name="Answers">
+      <EntityTypeMapping TypeName="Model.Answer">
+        <MappingFragment StoreEntitySet="Answer">
+          <ScalarProperty Name="ansno" ColumnName="ansno" />
+          <ScalarProperty Name="qno" ColumnName="qno" />
+          <ScalarProperty Name="ano" ColumnName="ano" />
+          <ScalarProperty Name="sno" ColumnName="sno" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Options">
+      <EntityTypeMapping TypeName="Model.Option">
+        <MappingFragment StoreEntitySet="Option">
+          <ScalarProperty Name="sno" ColumnName="sno" />
+          <ScalarProperty Name="qno" ColumnName="qno" />
+          <ScalarProperty Name="ano" ColumnName="ano" />
+          <ScalarProperty Name="text" ColumnName="text" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Questions">
+      <EntityTypeMapping TypeName="Model.Question">
+        <MappingFragment StoreEntitySet="Question">
+          <ScalarProperty Name="ano" ColumnName="ano" />
+          <ScalarProperty Name="qno" ColumnName="qno" />
+          <ScalarProperty Name="text" ColumnName="text" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserResonds">
+      <EntityTypeMapping TypeName="Model.UserResond">
+        <MappingFragment StoreEntitySet="UserResond">
+          <ScalarProperty Name="response" ColumnName="response" />
+          <ScalarProperty Name="qno" ColumnName="qno" />
+          <ScalarProperty Name="sum" ColumnName="sum" />
+          <ScalarProperty Name="userId" ColumnName="userId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Answer">
+    <Key>
+      <PropertyRef Name="ansno" />
+    </Key>
+    <Property Name="ansno" Type="int" Nullable="false" />
+    <Property Name="qno" Type="int" />
+    <Property Name="ano" Type="int" />
+    <Property Name="sno" Type="int" />
+  </EntityType>
+  <EntityType Name="Option">
+    <Key>
+      <PropertyRef Name="sno" />
+    </Key>
+    <Property Name="sno" Type="int" Nullable="false" />
+    <Property Name="qno" Type="int" />
+    <Property Name="ano" Type="int" />
+    <Property Name="text" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="Question">
+    <Key>
+      <PropertyRef Name="qno" />
+    </Key>
+    <Property Name="qno" Type="int" Nullable="false" />
+    <Property Name="text" Type="nvarchar(max)" />
+    <Property Name="ano" Type="int" />
+  </EntityType>
+  <EntityType Name="UserResond">
+    <Key>
+      <PropertyRef Name="userId" />
+    </Key>
+    <Property Name="userId" Type="int" Nullable="false" />
+    <Property Name="qno" Type="int" />
+    <Property Name="response" Type="int" />
+    <Property Name="sum" Type="int" />
+  </EntityType>
+  <Association Name="qno">
+    <End Role="Question" Type="Self.Question" Multiplicity="0..1" />
+    <End Role="Option" Type="Self.Option" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Question">
+        <PropertyRef Name="qno" />
+      </Principal>
+      <Dependent Role="Option">
+        <PropertyRef Name="qno" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="sno">
+    <End Role="Option" Type="Self.Option" Multiplicity="0..1" />
+    <End Role="Answer" Type="Self.Answer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Option">
+        <PropertyRef Name="sno" />
+      </Principal>
+      <Dependent Role="Answer">
+        <PropertyRef Name="sno" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ModelStoreContainer">
+    <EntitySet Name="Answer" EntityType="Self.Answer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Option" EntityType="Self.Option" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Question" EntityType="Self.Question" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserResond" EntityType="Self.UserResond" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="qno" Association="Self.qno">
+      <End Role="Question" EntitySet="Question" />
+      <End Role="Option" EntitySet="Option" />
+    </AssociationSet>
+    <AssociationSet Name="sno" Association="Self.sno">
+      <End Role="Option" EntitySet="Option" />
+      <End Role="Answer" EntitySet="Answer" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,53 @@
+﻿@model IEnumerable<MCQS.Models.Question>
+@{
+    ViewBag.Title = "Left Overs";
+    int count = int.Parse(Session["count"].ToString());
+    int ans = int.Parse(Session["answer"].ToString());
+}
+
+<h2>Questionaire</h2>
+
+<form method="post" action="/Home/NextForLater">
+    <table class="table">
+        @foreach (var question in Model)
+        {
+            <tr>
+                <td><input type="text" id="qno" name="qno" value="@question.qno" hidden="hidden" /></td>
+            </tr>
+            <tr>
+                <td>@Html.Label("question", count++ + " " + question.text)</td>
+            </tr>
+            foreach (var answer in question.Options)
+            {
+                <tr>
+                    <td>
+
+                        @Html.RadioButton("ans", answer.ano, new { id = answer.sno })
+                        @Html.Label("answer", answer.text)
+                        @foreach (var respond in answer.Answers)
+                        {
+                            if (answer.ano.Value == respond.ano.Value)
+                            {
+                                ans++;
+                                Session["answer"] = ans;
+
+                            }
+
+                        }
+                    </td>
+                </tr>
+            }
+        }
+
+        <tr>
+
+            <td align="right">
+                <input type="submit" value="Next" />
+                @{Session["count"] = count;
+                }
+
+            </td>
+        </tr>
+    </table>
+</form>
+
